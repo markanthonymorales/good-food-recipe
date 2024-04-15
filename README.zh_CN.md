@@ -1,21 +1,22 @@
-# Good-Food-Recipe
-Chrome extension for scrapping food recipe details and making it easy for user to check food recipe
 
 # vite-plugin-crx-mv3
 
-> Build a Chrome Extension with Vite.
+> 使用 Vite 构建 Chrome 扩展
 
-## Features
+[English](./README.md) | **简体中文** 
 
-+ Support Manifest V3.
-+ Support Typescript.
-+ Support sass/less in manifest.json.
-+ Support for multiple frameworks or libraries, such as vue, react, etc.
+## 特性
+
++ 支持Manifest V3
++ 支持Typescript
++ 支持在manifest.json中配置sass/less
++ 支持多种框架或库，如vue，react等等
 + Live Reload
-+ Easy to get started
++ 上手简单
 
-## Usage
-### Install
+## 用法
+
+### 安装
 
 ```bash
 # npm
@@ -25,31 +26,31 @@ yarn add vite-plugin-crx-mv3 -D
 # or pnpm
 pnpm add vite-plugin-crx-mv3 -D
 ```
-### Plugin options
+
+### 插件选项
 
 #### port
 
 - **Type:** `number`
 - **Default:** `8181`
 
-Create a websocket connection. Notify Chrome extension clients to reload when changes are made to the content_scripts and service_worker files.
+建立一个websocket连接。在content_scripts和service_worker文件发生变化时，通知Chrome扩展客户端重载。
 
 #### manifest
 
 - **Type:** `string`
 - **Required :** `true`
 
-Path to the chrome extension's manifest.json
+Chrome扩展的manifest.json文件路径。
 
 #### reloadPage
 
 - **Type:** `blooen`
 - **Default :** `true`
 
-Control automatic page loading in dev environment
+控制dev环境下自动加载页面
 
-### Configuration
-
+### 配置
 ```js
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -65,17 +66,16 @@ export default defineConfig({
 })
 ```
 
-### Run
-
+### 运行
 ```bash
 # development
-npm run dev
+npm run dev 
 # production
 npm run build
 ```
 
-## Examples
-Check out the examples in this repo.
+## 例子
+在本仓库下的examples目录下：
 
 + crx-basic
 + crx-vue
@@ -87,16 +87,20 @@ Check out the examples in this repo.
 + crx-solid
 + crx-newtab
 + crx-contentscript-sass-less
++ crx-executescript-function
++ crx-executescript-files
 + crx-chrome.script
 + crx-i18n
 + crx-devtools
 + crx-webAccessibleResources
 
-## Preview
+## 预览
+
 > examples/crx-vue-drawer
 
 <img src="./docs/content_script_drawer.gif" width="1000">
 
-## Notes
-+ After starting the project, you need to refresh the page manually for the first time, so that the client and the server can establish a websocket connection.
-+ The html file needs to be placed outside the src directory.
+
+## 注意事项
++ 启动项目后，第一次需要手动刷新页面，这样客户端和服务端便建立了websocket连接。
++ html文件需要放在src目录外层。

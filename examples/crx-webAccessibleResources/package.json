@@ -1,0 +1,16 @@
+{
+  "name": "crx-web-accessible-resources",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "vite build"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "less": "^4.1.3"
+  },
+  "devDependencies": {
+    "vite-plugin-crx-mv3": "workspace:*",
+    "vite": "^3.0.9"
+  }
+}

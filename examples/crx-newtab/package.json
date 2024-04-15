@@ -1,0 +1,15 @@
+{
+  "name": "crx-newtab",
+  "version": "0.0.1",
+  "scripts": {
+    "web:dev": "vite",
+    "dev": "vite build --watch --mode development",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.0",
+    "vite": "^3.0.9",
+    "vite-plugin-crx-mv3": "workspace:*"
+  },
+  "license": "ISC"
+}
