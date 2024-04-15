@@ -1,0 +1,10 @@
+{
+  "name": "crx-webAccessibleResources",
+  "version": "1.0.1",
+  "action": {},
+  "content_scripts": [{
+    "matches": [ "<all_urls>" ],
+    "js": ["content.js"]
+  }],
+  "manifest_version": 3
+}
