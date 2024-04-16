@@ -5,9 +5,19 @@
         Home
       </span>
     </router-link>
+    <router-link to="/list-recipes" class="cursor-pointer">
+      <span>
+        List of Recipes
+      </span>
+    </router-link>
     <router-link to="/about-us" class="cursor-pointer">
       <span>
         About us
+      </span>
+    </router-link>
+    <router-link to="/login" class="cursor-pointer">
+      <span>
+        Login
       </span>
     </router-link>
   </div>

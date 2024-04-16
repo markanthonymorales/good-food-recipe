@@ -1,11 +1,15 @@
 <script setup lang="ts">
-  import Navigation from "./components/Navigation.vue";
+    import Navigation from "./components/Navigation.vue";
 </script>
 <template>
- <div class="h-full w-full">
-  <div class="h-full w-full container mx-auto font-inter p-5 lg:p-10">
-    <h1 class="mt-5 text-center text-4xl font-bold">Home page</h1>
+ <div id="homepage" class="h-full w-full container mx-auto font-inter p-2">
     <Navigation />
-  </div>
+    <article class="">
+        <header class="text-[17px] text-black tracking-[-0.41px] leading-[22px] font-sf-pro-display font-medium md:text-[28px] md:font-normal md:leading-[33.41px] md:tracking-[0.36px]">Welcome to Good Food Recipe</header>
+        <section class="mx-2">
+        </section>
+        <footer class="">
+        </footer>
+    </article>
  </div>
 </template>
