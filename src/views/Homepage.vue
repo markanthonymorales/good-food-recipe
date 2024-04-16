@@ -1,6 +1,14 @@
 <script setup lang="ts">
     import Navigation from "./components/Navigation.vue";
     import FooterNav from "./components/FooterNav.vue";
+    // import axios from 'axios';
+    // import { ref, type Ref, onMounted } from "vue";
+    // let data: Ref<any> = ref('');
+    // onMounted(async () => {
+        // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+        // data.value = await axios.get('https://panlasangpinoy.com/sinabawang-isda-at-gulay/');
+        // console.log(data.value.data);
+    // });
 </script>
 <template>
  <div id="homepage" class="h-full w-full container mx-auto font-inter p-2">

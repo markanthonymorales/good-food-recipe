@@ -18,5 +18,8 @@
     "matches": ["<all_urls>"],
     "resources": ["assets/*"]
   }],
-  "manifest_version": 3
+  "manifest_version": 3,
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; connect-src https://* data: blob: filesystem:;"
+  }
 }
