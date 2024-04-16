@@ -1,5 +1,6 @@
 <script setup lang="ts">
     import Navigation from "./components/Navigation.vue";
+    import FooterNav from "./components/FooterNav.vue";
 </script>
 <template>
  <div id="aboutpage" class="h-full w-full container mx-auto font-inter p-2">
@@ -34,6 +35,7 @@
             <p class="mb-2">So why wait? Take your cooking skills to the next level with Good Food Recipe – the ultimate tool for foodies, home chefs, and anyone who loves good food.</p>
             <p class="mb-2">Install now and let the culinary adventures begin!</p>
         </footer>
+        <FooterNav />
     </article>
  </div>
 </template>
