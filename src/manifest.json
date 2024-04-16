@@ -10,11 +10,7 @@
   "action": {
     "default_popup": "../popup.html"
   },
-  "content_scripts": [{
-    "matches": [ "<all_urls>" ],
-    "js": [ "content-scripts/content.ts"],
-    "run_at": "document_start"
-  }],
+  "content_scripts": [],
   "background": {
     "service_worker": "background.ts"
   },
