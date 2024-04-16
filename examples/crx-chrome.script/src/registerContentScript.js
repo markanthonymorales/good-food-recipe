@@ -1,1 +1,0 @@
-alert('chrome.scripting.registerContentScripts')
