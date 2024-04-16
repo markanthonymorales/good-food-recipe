@@ -1,6 +1,6 @@
 {
-  "name": "crx-vue",
-  "description": "A Chrome extension demo.",
+  "name": "good-food-recipe",
+  "description": "Chrome extension for scrapping food recipe details and making it easy for user to check food recipe",
   "version": "1.0.0",
   "icons": {
     "16": "assets/icons/icon16.png",
