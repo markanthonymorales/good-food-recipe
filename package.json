@@ -6,6 +6,7 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@types/node": "^20.9.4",
     "axios": "^1.6.8",
     "express": "^4.19.2",
     "tailwind-scrollbar-hide": "^1.1.7",

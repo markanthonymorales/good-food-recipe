@@ -1,14 +1,19 @@
 <script setup lang="ts">
     import Navigation from "./components/Navigation.vue";
     import FooterNav from "./components/FooterNav.vue";
+    import { ref, type Ref, onMounted, inject } from "vue";
+    const database: object | undefined = inject('storadData');
+    let top10: any = ref({});
+    // import useData from "../composables/data-compiler";
     // import axios from 'axios';
-    // import { ref, type Ref, onMounted } from "vue";
     // let data: Ref<any> = ref('');
-    // onMounted(async () => {
+    onMounted(async () => {
+        top10.value = Object.values(database)?.filter((data, key, value) => key < 10);
+        console.log(top10.value);
         // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
         // data.value = await axios.get('https://panlasangpinoy.com/sinabawang-isda-at-gulay/');
         // console.log(data.value.data);
-    // });
+    });
 </script>
 <template>
  <div id="homepage" class="h-full w-full container mx-auto font-inter p-2">
@@ -34,7 +39,15 @@
                 </div>
             </form>
         </section>
-        <section id="content">
+        <section class="my-2">
+            <div class="w-full px-3">
+                <p for="list-recipes" class="py-2 text-[15px] text-black tracking-[-0.41px] leading-[22px] font-sf-pro-display font-medium">Top 10 Recipes</p>
+                <ol class="list-decimal list-inside flex flex-wrap text-center item-center justify-evenly">
+                    <li v-for="data in top10" class="w-1/2 mb-2">
+                        {{ data?.title }}
+                    </li>
+                </ol>
+            </div>
         </section>
         <FooterNav />
     </article>
