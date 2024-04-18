@@ -1,14 +1,14 @@
 <script setup lang="ts">
     import Navigation from "./components/Navigation.vue";
     import FooterNav from "./components/FooterNav.vue";
-    import { ref, type Ref, onMounted, inject } from "vue";
-    const database: object | undefined = inject('storadData');
+    import { ref, type Ref, onMounted } from "vue";
+    import { db } from "../composables/db";
+
     let top10: any = ref({});
     let limitFrom: number = 0;
     let limitTo: number = 10;
     onMounted(async () => {
-        top10.value = Object.values(database)?.filter((data, key, value) => key >= limitFrom && key < (limitFrom > 0 ? limitFrom * limitTo : limitTo));
-        console.log(top10.value);
+        top10.value = (await db.recipes.toArray()).splice(limitFrom, limitTo);
     });
 </script>
 <template>

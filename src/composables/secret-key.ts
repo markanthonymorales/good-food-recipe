@@ -4,7 +4,6 @@ import { getSHA256Hash } from "boring-webcrypto-sha256";
 const randomKey = getSHA256Hash(new Date().toString());
 
 const checkKeys = async (key1: string | null, key2: string): Promise<boolean> => {
-    console.log('checkKeys: ', key1, key2);
     return key1 === key2;
 };
 

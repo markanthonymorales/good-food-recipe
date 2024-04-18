@@ -1,28 +1,23 @@
 <script setup lang="ts">
     import Navigation from "./components/Navigation.vue";
     import FooterNav from "./components/FooterNav.vue";
-    import { ref, type Ref, onMounted, watch, inject } from "vue";
-    const database: object | undefined = inject('storadData');
+    import { db } from "../composables/db";
+    import { ref, type Ref, onMounted, watch } from "vue";
+
     let top10: any = ref({});
     let filter: Ref<string> = ref('');
-    // import useData from "../composables/data-compiler";
-    // import axios from 'axios';
-    // let data: Ref<any> = ref('');
 
     watch(
         () => filter.value,
-        (value) => {
+        async (value) => {
             console.log(value);
-            top10.value = Object.values(database)?.filter((data, key, arr) => data?.title.toLowerCase().match(value.toLowerCase()) !== null );
-            console.log(top10.value);
+            const getAll: any = await db.recipes.toArray();
+            top10.value = (getAll?.filter((data: any, key: number, arr: any) => data?.title.toLowerCase().match(value.toLowerCase()) !== null )).splice(0, 10);
         }
     )
 
     onMounted(async () => {
-        top10.value = Object.values(database)?.filter((data, key, arr) => key < 10);
-        // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
-        // data.value = await axios.get('https://panlasangpinoy.com/sinabawang-isda-at-gulay/');
-        // console.log(data.value.data);
+        top10.value = (await db.recipes.toArray()).splice(0, 10);
     });
 </script>
 <template>
