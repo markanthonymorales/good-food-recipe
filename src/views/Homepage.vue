@@ -20,9 +20,11 @@
     onMounted(async () => {
         top10.value = (await db.recipes.toArray()).splice(0, 10);
 
-        console.log("Run Scrapper...");
-        useScrapper();
-        console.log("End Scrapper...");
+        if (top10.value.length === 0) {
+            console.log("Run Scrapper...");
+            useScrapper();
+            console.log("End Scrapper...");
+        }
     });
 </script>
 <template>
