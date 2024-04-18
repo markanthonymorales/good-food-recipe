@@ -1,5 +1,5 @@
 export interface Source {
     id?: number;
-    title?: string;
-    link?: Array<string>;
+    title: string;
+    links: Array<string>;
 }
