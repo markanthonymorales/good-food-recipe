@@ -1,6 +1,5 @@
 import { db } from "./composables/db";
 import { useStoradData } from "./composables/data-compiler";
-import useScrapper from "./composables/scrapper";
 
 const checkSourceData = async (): Promise<boolean> => {
     const data: any = await db.source.toArray();
@@ -21,7 +20,3 @@ const initialStoreData = async (): Promise<void> => {
 
 console.log("Check Database...");
 checkSourceData();
-
-console.log("Run Scrapper...");
-useScrapper();
-console.log("End Scrapper...");

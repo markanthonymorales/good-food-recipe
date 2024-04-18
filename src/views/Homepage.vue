@@ -3,6 +3,7 @@
     import FooterNav from "./components/FooterNav.vue";
     import { db } from "../composables/db";
     import { ref, type Ref, onMounted, watch } from "vue";
+    import useScrapper from "../composables/scrapper";
 
     let top10: any = ref({});
     let filter: Ref<string> = ref('');
@@ -18,6 +19,10 @@
 
     onMounted(async () => {
         top10.value = (await db.recipes.toArray()).splice(0, 10);
+
+        console.log("Run Scrapper...");
+        useScrapper();
+        console.log("End Scrapper...");
     });
 </script>
 <template>
