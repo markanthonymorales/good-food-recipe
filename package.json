@@ -8,9 +8,12 @@
   "dependencies": {
     "@types/node": "^20.9.4",
     "@vueuse/integrations": "^10.9.0",
+    "@vueuse/rxjs": "^10.9.0",
     "axios": "^1.6.8",
     "boring-webcrypto-sha256": "^1.0.0",
+    "dexie": "^4.0.4",
     "express": "^4.19.2",
+    "rxjs": "^7.8.1",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tw-elements": "^1.0.0-beta2",
     "universal-cookie": "^7.1.4",
