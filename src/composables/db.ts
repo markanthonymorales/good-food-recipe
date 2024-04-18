@@ -9,10 +9,10 @@ export class MySubClassedDexie extends Dexie {
   source!: Table<Source>;
 
   constructor() {
-    super('myDatabase');
+    super('good-food-recipes');
     this.version(1).stores({
         recipes: '++id, title, ingredients, instructions, notes, nutrients, source', // Primary key and indexed props
-        source: '++id, title, link',
+        source: '++id, title, links',
     });
   }
 }

@@ -6,6 +6,7 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@progress/kendo-file-saver": "^1.1.1",
     "@types/node": "^20.9.4",
     "@vueuse/integrations": "^10.9.0",
     "@vueuse/rxjs": "^10.9.0",
