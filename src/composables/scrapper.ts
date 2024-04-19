@@ -6,6 +6,7 @@ let response: Ref<any> = ref('');
 const lists: Ref<Array<T>> = ref([]);
 
 const useScrapper = async() => {
+    console.log('scrapping data...');
     lists.value = await db.source.toArray();
     lists.value.forEach((list: any) => {
         list.links.forEach(async(link: string) => {
@@ -19,16 +20,26 @@ const useScrapper = async() => {
                 let title: string = documents.querySelector('.wprm-recipe-name')?.textContent ?? '';
                 let ingredients: Array<string> = [];
                 documents.querySelector('.wprm-recipe-ingredients')?.childNodes.forEach((node: any) => {
+                    if (node?.textContent?.trim() == '') return
                     ingredients.push(node.textContent);
                 });
 
                 let instructions: Array<string> = [];
                 documents.querySelector('.wprm-recipe-instructions')?.childNodes.forEach((node: any) => {
+                    if (node?.textContent?.trim() == '') return
                     instructions.push(node.textContent);
                 });
 
+                // (optional) get raw text notes from html elements
+                let notes: Array<string> = [];
+                documents.querySelector('.wprm-recipe-notes > ol')?.childNodes.forEach((node: any) => {
+                    if (node?.textContent?.trim() == '') return
+                    notes.push(node?.textContent)
+                })
+
                 let nutrients: Array<string> = [];
                 documents.querySelector('.wprm-nutrition-label-container')?.childNodes.forEach((node: any) => {
+                    if (node?.textContent?.trim() == '') return
                     nutrients.push(node.textContent);
                 });
 
@@ -40,7 +51,7 @@ const useScrapper = async() => {
                     instructions: instructions,
                     ingredients: ingredients,
                     nutrients: nutrients,
-                    notes: [],
+                    notes: notes,
                     source: link
                 });
                 console.log('Successfully add new ['+title+'] recipe...');
