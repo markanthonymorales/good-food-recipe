@@ -27,9 +27,14 @@
         List of Recipes
       </span>
     </router-link>
-    <router-link to="/about-us" class="hover:bg-gray-600 hover:text-white cursor-pointer">
+    <router-link v-if="!isLogged" to="/about-us" class="hover:bg-gray-600 hover:text-white cursor-pointer">
       <span>
         About us
+      </span>
+    </router-link>
+    <router-link v-if="isLogged" to="/site-map-scrapper" class="hover:bg-gray-600 hover:text-white cursor-pointer">
+      <span>
+        Scrapper
       </span>
     </router-link>
     <router-link v-if="!isLogged" to="/login" class="hover:bg-gray-600 hover:text-white cursor-pointer">

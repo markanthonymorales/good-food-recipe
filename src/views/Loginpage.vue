@@ -8,7 +8,6 @@
     const router = useRouter();
     const secret: Ref<string> = ref('');
     const isLoggen: Ref<boolean> = ref(false);
-    const result: Ref<string> = ref('');
     const submit = async () => {
         isLoggen.value = await useLogin(secret.value);
         if (isLoggen.value === true) {
@@ -16,7 +15,8 @@
             router.push('/admin');
             return false;
         }
-        result.value = 'Invalid credential. Please try again.';
+        // @ts-ignore
+        document.querySelector('#alert').textContent = "Invalid credential. Please try again.";
         return false;
     };
 </script>
@@ -39,7 +39,6 @@
                         <button type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">Login</button>
                     </div>
                 </div>
-                <p v-if="!isLoggen && result !== ''" class="text-[14px] text-danger font-extrabold">{{ result }}</p>
             </form>
         </section>
         <FooterNav />

@@ -6,6 +6,7 @@ import ListView from '../views/Listpage.vue'
 import LoginView from '../views/Loginpage.vue'
 import TermsView from '../views/TermsConditions.vue'
 import PrivacyPolicyView from '../views/PrivacyPolicy.vue'
+import SitemapScrapperView from '../views/SitemapScrapper.vue'
 import AdminView from '../views/Adminpage.vue'
 
 const routes = [
@@ -15,6 +16,7 @@ const routes = [
   { path: '/login', component: LoginView },
   { path: '/terms-conditions', component: TermsView },
   { path: '/privacy-policy', component: PrivacyPolicyView },
+  { path: '/site-map-scrapper', component: SitemapScrapperView },
   { path: '/admin', component: AdminView },
 ]
 

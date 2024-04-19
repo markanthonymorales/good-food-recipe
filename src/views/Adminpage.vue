@@ -4,15 +4,11 @@
     import { db } from "../composables/db";
     import { ref, type Ref, onMounted, watch } from "vue";
     import { saveAs, encodeBase64 } from '@progress/kendo-file-saver';
-
-    interface Data {
-        title: string,
-        links: Array<string>,
-    }
+    import { Source } from "../types/source-type";
     
     const title: Ref<string> = ref('');
     const links: Ref<Array<string>> = ref([]);
-    const dataList: Ref<Array<Data>> = ref([]);
+    const dataList: Ref<Array<Source>> = ref([]);
     const isSubmit: Ref<boolean> = ref(false);
 
     interface Info {
