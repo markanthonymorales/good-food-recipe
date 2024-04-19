@@ -5,25 +5,36 @@
     import { ref, type Ref, onMounted, watch } from "vue";
     import useScrapper from "../composables/scrapper";
 
-    let top10: any = ref({});
+    let top10: any = ref([]);
     let filter: Ref<string> = ref('');
 
     watch(
         () => filter.value,
         async (value) => {
-            console.log(value);
-            const getAll: any = await db.recipes.toArray();
-            top10.value = (getAll?.filter((data: any, key: number, arr: any) => data?.title.toLowerCase().match(value.toLowerCase()) !== null )).splice(0, 10);
+            let query: RegExp = new RegExp(value.toLowerCase(), "i");
+            const collection = db.recipes
+            .orderBy('title')
+            .filter((recipes) => typeof recipes.title !== "undefined" && recipes.title !== "" && query.test(recipes.title.toLowerCase()));
+            
+            top10.value = await collection.limit(10).toArray();
         }
     )
 
     onMounted(async () => {
-        top10.value = (await db.recipes.toArray()).splice(0, 10);
+        const collection = db.recipes
+        .orderBy('title')
+        .filter((recipes) => typeof recipes.title !== "undefined" && recipes.title !== "");
+
+        top10.value = await collection.limit(10).toArray();
 
         if (top10.value.length === 0) {
-            console.log("Run Scrapper...");
-            useScrapper();
-            console.log("End Scrapper...");
+            // @ts-ignore
+            document.querySelector('#alert').textContent = "Run Scrapper...";
+            await useScrapper();
+            // @ts-ignore
+            document.querySelector('#alert').textContent = "End Scrapper...";
+
+            top10.value = await collection.limit(10).toArray();
         }
     });
 </script>
@@ -51,8 +62,8 @@
         <section class="my-2">
             <div class="w-full px-3">
                 <p for="list-recipes" class="py-2 text-[15px] text-black tracking-[-0.41px] leading-[22px] font-sf-pro-display font-medium">Top 10 Recipes</p>
-                <ol class="list-decimal list-inside flex flex-wrap text-center item-center justify-evenly">
-                    <li v-for="data in top10" class="w-1/2 mb-2">
+                <ol class="list-decimal list-inside flex flex-wrap item-center justify-evenly">
+                    <li v-for="data in top10" class="w-1/2 mb-2 truncate">
                         {{ data?.title }}
                     </li>
                 </ol>

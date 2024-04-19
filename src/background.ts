@@ -5,7 +5,7 @@ const checkSourceData = async (): Promise<boolean> => {
     const data: any = await db.source.toArray();
     if(data.length > 0) {
         console.log('We have source data in the database...');
-        return false;
+        return true;
     }
     console.log('We don\'t found source data in the database...');
     await initialStoreData();
@@ -14,7 +14,7 @@ const checkSourceData = async (): Promise<boolean> => {
 
 const initialStoreData = async (): Promise<void> => {
     console.log('Create initial store data');
-    await Object.values(useStoradData())?.forEach((data, key, arr) => db.source.add(data));
+    Object.values(useStoradData())?.forEach( async(data: any) => await db.source.add(data));
     console.log('Complete initial store data');
 }
 
