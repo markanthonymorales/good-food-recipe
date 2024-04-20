@@ -5,42 +5,41 @@
     import { db } from "../composables/db";
 
     let top10: any = ref({});
-    let counter: number = 0;
+    let counter: number = 1;
     let limitPerPage: number = 10;
     let totalPage: number = 0;
     let pagination: number = 0;
 
     const prev = async() => {
-        if(counter === 0){
-            return;
-        }
+        if(counter === 1)return;
+
         counter--;
         pagination -= limitPerPage;
-        const collection: any = db.recipes
-        .orderBy('title')
-        .filter((recipes) => typeof recipes.title !== "undefined" && recipes.title !== "");
-        top10.value = await collection.offset(pagination).limit(limitPerPage).toArray();
+        
+        top10.value = await getCollection();
     };
 
     const next = async() => {
-        if(pagination === totalPage){
-            return;
-        }
+        if(counter === parseInt(totalPage.toString())) return;
+
         counter++;
         pagination += limitPerPage;
+        
+        top10.value = await getCollection();
+    };
+
+    const getCollection = async () => {
         const collection: any = db.recipes
         .orderBy('title')
         .filter((recipes) => typeof recipes.title !== "undefined" && recipes.title !== "");
-        top10.value = await collection.offset(pagination).limit(limitPerPage).toArray();
+
+        let total: number = await collection.count();
+        totalPage = total / limitPerPage;
+        return await collection.offset(pagination).limit(limitPerPage).toArray();
     };
 
     onMounted(async () => {
-        const collection: any = db.recipes
-        .orderBy('title')
-        .filter((recipes) => typeof recipes.title !== "undefined" && recipes.title !== "");
-        let total: number = await collection.count();
-        totalPage = total / limitPerPage;
-        top10.value = await collection.offset(pagination).limit(limitPerPage).toArray();
+        top10.value = await getCollection();
     });
 </script>
 <template>
@@ -53,7 +52,11 @@
                 <!-- <p for="list-recipes" class="py-2 text-[15px] text-black tracking-[-0.41px] leading-[22px] font-sf-pro-display font-medium">Top 10 Recipes</p> -->
                 <ol class="list-decimal list-inside flex flex-wrap item-center justify-evenly">
                     <li v-for="data in top10" class="w-1/2 mb-2 truncate">
-                        {{ data?.title }}
+                        <router-link :to="{ path: '/recipe/' + data?.id.toString() }" :alt="data?.title" class="hover:bg-gray-600 hover:text-white cursor-pointer">
+                            <span>
+                                {{ data?.title }}
+                            </span>
+                        </router-link>
                     </li>
                 </ol>
                 <div class="my-2">

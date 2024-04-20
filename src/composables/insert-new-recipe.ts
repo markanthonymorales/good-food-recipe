@@ -6,7 +6,11 @@ const useInsertRecipe = async(link: string) => {
         return;
     }
 
-    let response: Document = await axios.get(link);
+    let response: any = await axios.get(link);
+    if(!response) {
+        return;
+    }
+    
     const parser: DOMParser = new DOMParser();
 
     const html = parser.parseFromString(response.data, "text/html");
@@ -40,7 +44,8 @@ const useInsertRecipe = async(link: string) => {
         source: link
     });
 
-    console.log('Successfully add new ['+title+'] recipe...');
+    // @ts-ignore
+    document.querySelector('#alert').textContent = 'Successfully add new ['+title+'] recipe...';
     return;
 }
 

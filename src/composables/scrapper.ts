@@ -1,15 +1,21 @@
-import axios from 'axios';
 import { db } from "../composables/db";
-import { Source } from "../types/source-type";
 import useInsertRecipe from "../composables/insert-new-recipe";
 
-const useScrapper = async() => {
-    let lists: Source = await db.source.toArray();
-    lists.forEach((list: any) => {
-        list.links.forEach(async(link: string) => {
+const useScrapper = async(limit: number = 0) => {
+    // @ts-ignore
+    document.querySelector('#alert').textContent = "Run Scrapper...";
+
+    let lists: Array<object> = await db.source.toArray();
+    
+    await lists.forEach(async(list: any) => {
+        let newLinks = list.links.splice(0, limit);
+        await newLinks.forEach(async(link: string) => {
             await useInsertRecipe(link);
         });
     });
+
+    // @ts-ignore
+    document.querySelector('#alert').textContent = "Done...";
 }
 
 export default useScrapper;
