@@ -4,6 +4,7 @@
     import { db } from "../composables/db";
     import { ref, type Ref, onMounted, watch } from "vue";
     import useScrapper from "../composables/scrapper";
+    import useSearchScrapper from "../composables/search-scrapper";
 
     let top10: any = ref([]);
     let filter: Ref<string> = ref('');
@@ -11,31 +12,36 @@
     watch(
         () => filter.value,
         async (value) => {
-            let query: RegExp = new RegExp(value.toLowerCase(), "i");
-            const collection = db.recipes
-            .orderBy('title')
-            .filter((recipes) => typeof recipes.title !== "undefined" && recipes.title !== "" && query.test(recipes.title.toLowerCase()));
-            
-            top10.value = await collection.limit(10).toArray();
+            top10.value = await getCollection(value.toLowerCase());
+            if(top10.value.length === 0) {
+                await useSearchScrapper(value.toLowerCase());
+            }
         }
     )
 
-    onMounted(async () => {
+    const checkingData = async() => {
+        if (top10.value.length !== 0) {
+            return;
+        }
+
+        return await useScrapper(10);
+    };
+
+    const getCollection = async(search: string = '') => {
+        let query: RegExp = new RegExp(search, "i");
         const collection = db.recipes
         .orderBy('title')
-        .filter((recipes) => typeof recipes.title !== "undefined" && recipes.title !== "");
+        .filter((recipes) => typeof recipes.title !== "undefined" && recipes.title !== "" && query.test(recipes.title.toLowerCase()));
 
-        top10.value = await collection.limit(10).toArray();
+        return await collection.limit(10).toArray();
+    }
 
-        if (top10.value.length === 0) {
-            // @ts-ignore
-            document.querySelector('#alert').textContent = "Run Scrapper...";
-            await useScrapper();
-            // @ts-ignore
-            document.querySelector('#alert').textContent = "End Scrapper...";
+    onMounted(async () => {
+        top10.value = await getCollection();
 
-            top10.value = await collection.limit(10).toArray();
-        }
+        await checkingData();
+
+        top10.value = await getCollection();
     });
 </script>
 <template>
@@ -64,7 +70,11 @@
                 <p for="list-recipes" class="py-2 text-[15px] text-black tracking-[-0.41px] leading-[22px] font-sf-pro-display font-medium">Top 10 Recipes</p>
                 <ol class="list-decimal list-inside flex flex-wrap item-center justify-evenly">
                     <li v-for="data in top10" class="w-1/2 mb-2 truncate">
-                        {{ data?.title }}
+                        <router-link :to="{ path: '/recipe/' + data?.id.toString() }" :alt="data?.title" class="hover:bg-gray-600 hover:text-white cursor-pointer">
+                            <span>
+                                {{ data?.title }}
+                            </span>
+                        </router-link>
                     </li>
                 </ol>
             </div>
