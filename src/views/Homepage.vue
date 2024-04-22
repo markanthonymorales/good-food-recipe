@@ -15,6 +15,7 @@
             top10.value = await getCollection(value.toLowerCase());
             if(top10.value.length === 0) {
                 await useSearchScrapper(value.toLowerCase());
+                top10.value = await getCollection(value.toLowerCase());
             }
         }
     )
