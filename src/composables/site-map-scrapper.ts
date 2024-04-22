@@ -10,17 +10,17 @@ const useSitemapScrapper = async(title: string, url: string) => {
     console.log('html: ', html);
     const list: any = html.querySelector('.wsp-posts-list');
 
-    await Object.values(list.children).forEach(async(category: any) => {
+    Object.values(list.children).forEach(async(category: any) => {
         let t = category.firstChild.textContent;
         if(t !== 'Category: Recipes') {
             return;
         }
     
-        await Object.values(category.lastChild.children).forEach(async(post: any) => {
+        Object.values(category.lastChild.children).forEach(async(post: any) => {
             if(post.children.length > 1) {
-                await Object.values(post.lastChild.children).forEach(async(subpost: any) => {
+                Object.values(post.lastChild.children).forEach(async(subpost: any) => {
                     if(subpost.children.length > 1) {
-                        await Object.values(subpost.lastChild.children).forEach(async(subsubpost: any) => {
+                        Object.values(subpost.lastChild.children).forEach(async(subsubpost: any) => {
                             let href: string | undefined = subsubpost.lastChild.href
                             if(href) {
                                 links.value.push(href);

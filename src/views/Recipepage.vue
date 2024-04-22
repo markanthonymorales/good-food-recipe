@@ -1,15 +1,15 @@
 <script setup lang="ts">
     import Navigation from "./components/Navigation.vue";
     import FooterNav from "./components/FooterNav.vue";
-    import { ref, type Ref, onMounted } from "vue";
+    import { ref, type Ref, onMounted, onActivated } from "vue";
     import { db } from "../composables/db";
     import { useRoute } from 'vue-router'
     import { Recipes } from '../types/recipes-type';
 
     const route = useRoute();
     const recipe: Ref<Recipes> = ref({});
-
-    onMounted(async () => {
+    
+    const resetForm = async() => {
         const collection = db.recipes
         .orderBy('title')
         .filter((recipes) => typeof recipes.id !== "undefined" && recipes.id.toString() === route.params.id.toString() );
@@ -17,6 +17,14 @@
         if(getData.length > 0) {
             recipe.value = getData[0];
         }
+    };
+
+    onMounted(async () => {
+        await resetForm();
+    });
+
+    onActivated(async () => {
+        await resetForm();
     });
 </script>
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import Navigation from "./components/Navigation.vue";
     import FooterNav from "./components/FooterNav.vue";
-    import { ref, type Ref, onMounted } from "vue";
+    import { ref, type Ref, onMounted, onActivated } from "vue";
     import { db } from "../composables/db";
 
     let top10: any = ref({});
@@ -39,6 +39,10 @@
     };
 
     onMounted(async () => {
+        top10.value = await getCollection();
+    });
+
+    onActivated(async () => {
         top10.value = await getCollection();
     });
 </script>
